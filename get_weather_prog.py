@@ -33,25 +33,24 @@ while True:
                         print("Location not found.")
                         return None
 
-                # Example usage:
                 city = input("Enter a city name: ")
                 coordinates = get_coordinates(city)
                 if coordinates:
                     latitude, longitude = coordinates
                     print(f"The latitude and longitude of {city} are: {latitude}, {longitude}")
                 else:
-                    #print("Failed to retrieve coordinates.")
-                    continue  # Ask for city name again if coordinates are not found
+                    
+                    continue  # go back to the main menu again
 
                 # Get the start and end dates
+                print("\n\nchoose the start and end date, and if you leave it blank it will defaulted to next day date!\n\n")
                 start_date = input("What is the date in this format please: yyyy-mm-dd: ")
                 end_date = input("What is the end date in this format please: yyyy-mm-dd: ")
 
                 
                 if is_valid_date(start_date, end_date):
                     try:
-
-                        # Construct the URL for the API request
+                       # Construct the URL for the API request
                         if start_date and end_date:
                             url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=precipitation_sum&timezone=Europe%2FLondon&start_date={start_date}&end_date={end_date}"
                         else:
@@ -76,8 +75,7 @@ while True:
                         # Write weather data to a file
                         with open("weather.txt", "w") as weather_file:
                             json.dump({"city": city, "precipitation": precipitation_data, "time": time_data}, weather_file)
-                        #else:
-                        #    print("Failed to fetch weather data from the API.")
+
                     except RequestException as e:  # Handle network-related errors
                         print("Failed to fetch weather data from the API:", e)
                     
@@ -87,8 +85,6 @@ while True:
                     print(f"{start_date} is not a valid date.")
                     continue
 
-            # make it askining the user if they want to check another city when they load the existing file, 
-        # and try to do some try and escept statement
     elif choice == "3":
          exit()
 

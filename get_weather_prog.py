@@ -16,7 +16,6 @@ while True:
                 
     elif choice =="2":
                 
-        # while True:
                 def is_valid_date(date_string, format="%Y-%m-%d"):
                     try:
                         datetime.datetime.strptime(date_string, format)
@@ -59,8 +58,7 @@ while True:
 
                         # Send the API request
                         response = requests.get(url)
-                        #if response.status_code == 200:
-                        response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
+                        response.raise_for_status()  # Raise an exception for HTTP errors .
                         response_dict = response.json()
                         precipitation_data = response_dict.get("daily", {}).get("precipitation_sum", [])
                         time_data = response_dict.get("daily", {}).get("time", [])
@@ -72,7 +70,7 @@ while True:
                             else:
                                 print(f"There's no rain in {city} on {t}")
                         
-                        # Write weather data to a file
+                        # Write weather info to a file
                         with open("weather.txt", "w") as weather_file:
                             json.dump({"city": city, "precipitation": precipitation_data, "time": time_data}, weather_file)
 
